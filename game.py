@@ -1,6 +1,15 @@
-from datetime import datetime
+from datetime import datetime as dt
 import random as rd
 
+
+
+
+def set_id():
+    alpha1 = [x for x in "aeiou"]
+    symbol = [y for y in "!@#$%&_+="]
+    num = rd.randint(1,100.000)
+    id = rd.choice(alpha1) + rd.choice(symbol) + str(num)
+    return id
 
 
 def set_min():
@@ -16,13 +25,21 @@ def set_rounds():
     return rounds
     
 def op_time():
-    now = datetime.now().strftime("%H:%M:%S:%SS")
-    return now
+    dict_time = { "year" : dt.now().year,
+                "day" : dt.now().day,
+                "month" : dt.now().month ,
+                "hour" : dt.now().hour,
+                "minute" : dt.now().minute,
+                "second" : dt.now().second}
+    return dict_time
+        
+    
 
 
 
 #sum
-def sum_generate(min, max, now):
+#---------------------------------------------------------------------------------------
+def sum_generate(min, max, dict_time, id):
     op_log = {}
     answer = ""
     min = int(min)
@@ -30,18 +47,24 @@ def sum_generate(min, max, now):
     n1 = rd.randint(min, max)
     n2 = rd.randint(min, max)
     result = n1 + n2
+    t1 = dt.now().second
+    
     question = input("{} + {} =  ".format(n1, n2))
+    t2 = dt.now().second
+    delta_time = t2 - t1
+    
     if int(question) == result:
         answer = "right"
     else:
         answer = "wrong"
-        
-    op_log.update({"sum" + now : {
+    
+    op_log.update({id : {
                     "op" : "sum" ,
-                    "time" : now ,
-                    "answer" : answer
-                        }
-                    })
+                    "time" : dict_time ,
+                    "answer" : answer,
+                    "delta_time" : delta_time 
+                                    }
+                                })
     return op_log
         
     
@@ -50,7 +73,7 @@ def sum_generate(min, max, now):
 
 #subtraction
 
-def subtraction_generate(min, max, now):
+def subtraction_generate(min, max,dict_time, id):
     op_log = {}
     answer = ""
     min = int(min)
@@ -58,15 +81,19 @@ def subtraction_generate(min, max, now):
     n1 = rd.randint(min, max)
     n2 = rd.randint(min, max)
     result = n1 - n2
+    t1 = dt.now().second
     question = input("{} - {} =  ".format(n1, n2))
+    t2 = dt.now().second
+    delta_time = t2 - t1
+    
     if int(question) == result:
         answer = "right"
     else:
         answer = "wrong"
         
-    op_log.update({"sub" + now : {
+    op_log.update({id : {
                     "op" : "sum" ,
-                    "time" : now ,
+                    "time" : dict_time ,
                     "answer" : answer
                         }
                     })
@@ -76,7 +103,7 @@ def subtraction_generate(min, max, now):
     print("{} + {} = {} ".format(n1, n2, result))
 
 
-def times_generate(now):
+def times_generate(now, dict_time, id):
     op_log = {}
     answer = ""
     min = 1
@@ -84,15 +111,18 @@ def times_generate(now):
     n1 = rd.randint(min, max)
     n2 = rd.randint(min, max)
     result = n1 * n2
+    t1 = dt.now().second
     question = input("{} * {} =  ".format(n1, n2))
+    t2 = dt.now().second
+    delta_time = t2 - t1
     if int(question) == result:
         answer = "right"
     else:
         answer = "wrong"
         
-    op_log.update({"times" + now : {
+    op_log.update({id: {
                     "op" : "sum" ,
-                    "time" : now ,
+                    "time" : dict_time ,
                     "answer" : answer
                         }
                     })
@@ -102,7 +132,7 @@ def times_generate(now):
     print("{} + {} = {} ".format(n1, n2, result))
 
 
-def division_generate(max, now):
+def division_generate(max, now, dict_time, id):
     op_log = {}
     answer = ""
     
@@ -116,15 +146,18 @@ def division_generate(max, now):
     n1 = rd.randint(min, max)
     n2 = rd.randint(min, max)
     result = n1 * n2
+    t1 = dt.now().second
     question = input("{} * {} =  ".format(n1, n2))
+    t2 = dt.now().second
+    delta_time = t2 - t1
     if int(question) == result:
         answer = "right"
     else:
         answer = "wrong"
         
-    op_log.update({"division" + now : {
+    op_log.update({id : {
                     "div" : "sum" ,
-                    "time" : now ,
+                    "time" : dict_time ,
                     "answer" : answer
                         }
                     })
@@ -140,10 +173,11 @@ rounds = int(set_rounds())
 
 min = set_min()
 max = set_max()
+dic_time = op_time()
 main_log = {}
 
 for x in range(rounds):
-    main_log[x] = times_generate(op_time())
+    main_log[x] = sum_generate(min, max, op_time(), set_id())
 for x, y in main_log.items():
     print(x, y)
 #subtraction
