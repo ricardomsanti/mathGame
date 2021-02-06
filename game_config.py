@@ -25,15 +25,15 @@ def set_id():
 
 
 def set_min():
-    min = input("Please set operations minumum value \n")
+    min = input("Please set operations minumum value \n\n")
     return min
 
 def set_max():
-    max = input("Please set operations maximum value \n")
+    max = input("Please set operations maximum value \n\n")
     return max
 
 def set_rounds():
-    round_num = input("Please set the number of rounds \n")
+    round_num = input("Please set the number of rounds \n\n")
     return round_num
     
 def set_time():
@@ -45,29 +45,29 @@ def set_time():
                 "second" : dt.now().second}
     return dict_time
         
-def op_selector(round_num):    
+def op_selector():    
     
-    print("Total round number = {} \n".format(round_num))
+    
     op_list = [ "sum", "sub", "times", "div"] 
     op_reps = ""
-    total = int(round_num)
     num_assigned = 0
+    total = 0
     for x in op_list:
-        num = input("Please define how many {} operations rounds there will be in this game \n".format(x))
+        num = input("Please define how many {} operations rounds there will be in this game \n\n".format(x))
         num = int(num)
-        num_assigned += num
-        rest = total - num_assigned
+        total += num
         op_reps += str(num) + ","
-        print("{} rounds left".format(rest))
+        
+    print("Round total = {}".format(total))
     return op_reps
 
 
 
 def set_random():
-    random = input("Set shuffle mode on? \n")
+    random = input("Set shuffle mode on? \n\n")
     return random
     
-def run_store(op_reps, random_mode, round_num, min, max, dict_time, id):
+def run_store(op_reps, random_mode, min, max, dict_time, id):
     
     
     
@@ -83,46 +83,58 @@ def run_store(op_reps, random_mode, round_num, min, max, dict_time, id):
     
     ops = [1,2,3,4]
     main_log = {}
+    end_ops = 0
     
+      
+    #generating randomness-----------------------------------
     
-    # generatin total number of rounds----------------
-    for round in round_num:
+    if random_mode == "y":
     
-        #generating randomness-----------------------------------
-        
-        if random_mode == "y":
-        
+        while end_ops < 4:
+
             running_op = rd.choice(ops)
             
             if running_op == 1:
                 sum_count -= 1            
-                if sum_count != 0:                
+                if sum_count >= 0:                
                     main_log.update(go.sum_generate(min=min, max=max, dict_time=set_time(), id=set_id()))
                 
-                else: 
-                    pass
+                else:
+                    if sum_count == -1:
+                        end_ops += 1
+                    else:
+                        continue
                 
             elif running_op == 2:
                 sub_count -= 1
-                if sub_count != 0:
+                if sub_count >= 0:                
                     main_log.update(go.subtraction_generate(min=min, max=max, dict_time=set_time(), id=set_id()))
                 else:
-                    pass
+                    if sub_count == -1:
+                        end_ops += 1
+                    else:
+                        continue
             
             elif running_op == 3:    
                 times_count -=1
-                if times_count != 0:
+                if times_count >= 0:                
                     main_log.update(go.times_generate(dict_time=set_time(),id=set_id()))
-                else:
-                        pass
-                    
+                else: 
+                    if times_count == -1:
+                        end_ops += 1
+                    else:
+                        continue
+
             elif running_op == 4:
                 div_count -= 1
-                if div_count != 0:
-                    main_log.update(go.division_generate(max=max, dict_time=set_time(), id=set_time()))
-                else:
-                        pass
-    
+                if div_count >= 0:                
+                    main_log.update(go.division_generate(max=max, dict_time=set_time(), id=set_id()))
+                else: 
+                    if div_count == -1:
+                        end_ops += 1
+                    else:
+                        continue
+
     return main_log                
-        
+    
         

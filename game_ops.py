@@ -9,38 +9,38 @@ import random as rd
 
 # sum
 #---------------------------------------------------------------------------------------
-def sum_generate(min, max, dict_time, id, reps):
+def sum_generate(min, max, dict_time, id):
     
-    for x in range(reps -1):
-        op_log = {}
-        answer = ""
-        min = int(min)
-        max = int(max)
-        n1 = rd.randint(min, max)
-        n2 = rd.randint(min, max)
-        result = n1 + n2
-        t1 = dt.now().second
+    
+    op_log = {}
+    answer = ""
+    min = int(min)
+    max = int(max)
+    n1 = rd.randint(min, max)
+    n2 = rd.randint(min, max)
+    result = n1 + n2
+    t1 = dt.now().second
+    
+    question = input("{} + {} =  ".format(n1, n2))
+    t2 = dt.now().second
+    delta_time = t2 - t1
+    
+    if int(question) == result:
+        answer = "right"
+    else:
+        answer = "wrong"
+    
+    op_log.update({id : {
+                    "op" : "sum" ,
+                    "time" : dict_time ,
+                    "answer" : answer,
+                    "delta_time" : delta_time 
+                                    }
+                                })
+    return op_log
         
-        question = input("{} + {} =  ".format(n1, n2))
-        t2 = dt.now().second
-        delta_time = t2 - t1
-        
-        if int(question) == result:
-            answer = "right"
-        else:
-            answer = "wrong"
-        
-        op_log.update({id : {
-                        "op" : "sum" ,
-                        "time" : dict_time ,
-                        "answer" : answer,
-                        "delta_time" : delta_time 
-                                        }
-                                    })
-        return op_log
-            
-        
-        print("{} + {} = {} ".format(n1, n2, result))
+    
+    print("{} + {} = {} ".format(n1, n2, result))
 
 
 # subtraction
@@ -66,11 +66,12 @@ def subtraction_generate(min, max,dict_time, id):
         answer = "wrong"
         
     op_log.update({id : {
-                    "op" : "sum" ,
+                    "op" : "sub" ,
                     "time" : dict_time ,
-                    "answer" : answer
-                        }
-                    })
+                    "answer" : answer,
+                    "delta_time" : delta_time 
+                               }
+                              })
     return op_log
         
     
@@ -96,12 +97,13 @@ def times_generate(dict_time, id):
     else:
         answer = "wrong"
         
-    op_log.update({id: {
-                    "op" : "sum" ,
-                    "time" : dict_time ,
-                    "answer" : answer
-                        }
-                    })
+        op_log.update({id : {
+                        "op" : "times" ,
+                        "time" : dict_time ,
+                        "answer" : answer,
+                        "delta_time" : delta_time 
+                                }
+                                })
     return op_log
         
     
@@ -116,7 +118,7 @@ def division_generate(max, dict_time, id):
     
     max = int(max)
     
-    zero_div = [ x for x  in range(max) if x % max == 0]
+    zero_div = [ x for x  in range(1,max) if x % max >= 0]
     
     
     #division by zero error---fix it
@@ -125,7 +127,7 @@ def division_generate(max, dict_time, id):
     n2 = rd.randint(min, max)
     result = n1 * n2
     t1 = dt.now().second
-    question = input("{} * {} =  ".format(n1, n2))
+    question = input("{} / {} =  ".format(n1, n2))
     t2 = dt.now().second
     delta_time = t2 - t1
     if int(question) == result:
@@ -133,13 +135,15 @@ def division_generate(max, dict_time, id):
     else:
         answer = "wrong"
         
-    op_log.update({id : {
-                    "div" : "sum" ,
-                    "time" : dict_time ,
-                    "answer" : answer
-                        }
-                    })
+        op_log.update({id : {
+                        "op" : "div" ,
+                        "time" : dict_time ,
+                        "answer" : answer,
+                        "delta_time" : delta_time 
+                                }
+                                })
     return op_log
+    
         
     
     print("{} + {} = {} ".format(n1, n2, result))
