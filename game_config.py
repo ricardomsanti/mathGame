@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 import random as rd
+import game_ops as go
 
 
 #########################################################################################################
@@ -48,7 +49,7 @@ def op_selector(round_num):
     
     print("Total round number = {} \n".format(round_num))
     op_list = [ "sum", "sub", "times", "div"] 
-    op_dict = {}
+    op_reps = ""
     total = int(round_num)
     num_assigned = 0
     for x in op_list:
@@ -56,13 +57,72 @@ def op_selector(round_num):
         num = int(num)
         num_assigned += num
         rest = total - num_assigned
-        op_dict[x] = num
+        op_reps += str(num) + ","
         print("{} rounds left".format(rest))
-    return op_dict
+    return op_reps
 
 
 
 def set_random():
-    random = input("Would you like to tunr o shufle mode?")
+    random = input("Set shuffle mode on? \n")
     return random
     
+def run_store(op_reps, random_mode, round_num, min, max, dict_time, id):
+    
+    
+    
+      
+    
+    
+    sum_count, sub_count, times_count, div_count = op_reps.split(',')[:-1]
+    sum_count= int(sum_count)
+    sub_count = int(sub_count)
+    times_count = int(times_count)
+    div_count = int(div_count)
+    
+    
+    ops = [1,2,3,4]
+    main_log = {}
+    
+    
+    # generatin total number of rounds----------------
+    for round in round_num:
+    
+        #generating randomness-----------------------------------
+        
+        if random_mode == "y":
+        
+            running_op = rd.choice(ops)
+            
+            if running_op == 1:
+                sum_count -= 1            
+                if sum_count != 0:                
+                    main_log.update(go.sum_generate(min=min, max=max, dict_time=set_time(), id=set_id()))
+                
+                else: 
+                    pass
+                
+            elif running_op == 2:
+                sub_count -= 1
+                if sub_count != 0:
+                    main_log.update(go.subtraction_generate(min=min, max=max, dict_time=set_time(), id=set_id()))
+                else:
+                    pass
+            
+            elif running_op == 3:    
+                times_count -=1
+                if times_count != 0:
+                    main_log.update(go.times_generate(dict_time=set_time(),id=set_id()))
+                else:
+                        pass
+                    
+            elif running_op == 4:
+                div_count -= 1
+                if div_count != 0:
+                    main_log.update(go.division_generate(max=max, dict_time=set_time(), id=set_time()))
+                else:
+                        pass
+    
+    return main_log                
+        
+        

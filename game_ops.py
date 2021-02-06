@@ -79,7 +79,7 @@ def subtraction_generate(min, max,dict_time, id):
 # times
 #---------------------------------------------------------------------------------------
 
-def times_generate(now, dict_time, id):
+def times_generate(dict_time, id):
     op_log = {}
     answer = ""
     min = 1
@@ -110,7 +110,7 @@ def times_generate(now, dict_time, id):
 # division
 #---------------------------------------------------------------------------------------
 
-def division_generate(max, now, dict_time, id):
+def division_generate(max, dict_time, id):
     op_log = {}
     answer = ""
     

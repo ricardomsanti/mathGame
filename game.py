@@ -17,22 +17,10 @@ gc.set_start()
 round_num = gc.set_rounds()
 min = gc.set_min()
 max = gc.set_max()
-op_selection = gc.op_selector(round_num=round_num)
-random = gc.set_random()
+op_reps = gc.op_selector(round_num=round_num)
+random_mode = gc.set_random()
 
 #RUN CHALLENGE
 ##################################################################################
+gc.run_store(op_reps=op_reps, random_mode=random_mode, round_num=round_num,min=min, max=max, dict_time=gc.set_time,id=gc.set_id) 
 
-
-sum_count = int(op_selection["sum"])
-sub_count = int(op_selection["sub"])
-times_count = int(op_selection["times"])
-div_count = int(op_selection["div"])
-
-#---------------------------------------------------some proble here
-
-result_dict = {}
-if random != "y":
-    for round in round_num:
-        result_dict.update(go.sum_generate(min=min, max=max, dict_time=gc.set_time(),id=gc.set_id(),reps=sum_count))
-        
