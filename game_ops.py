@@ -9,36 +9,38 @@ import random as rd
 
 # sum
 #---------------------------------------------------------------------------------------
-def sum_generate(min, max, dict_time, id):
-    op_log = {}
-    answer = ""
-    min = int(min)
-    max = int(max)
-    n1 = rd.randint(min, max)
-    n2 = rd.randint(min, max)
-    result = n1 + n2
-    t1 = dt.now().second
+def sum_generate(min, max, dict_time, id, reps):
     
-    question = input("{} + {} =  ".format(n1, n2))
-    t2 = dt.now().second
-    delta_time = t2 - t1
-    
-    if int(question) == result:
-        answer = "right"
-    else:
-        answer = "wrong"
-    
-    op_log.update({id : {
-                    "op" : "sum" ,
-                    "time" : dict_time ,
-                    "answer" : answer,
-                    "delta_time" : delta_time 
-                                    }
-                                })
-    return op_log
+    for x in range(reps -1):
+        op_log = {}
+        answer = ""
+        min = int(min)
+        max = int(max)
+        n1 = rd.randint(min, max)
+        n2 = rd.randint(min, max)
+        result = n1 + n2
+        t1 = dt.now().second
         
-    
-    print("{} + {} = {} ".format(n1, n2, result))
+        question = input("{} + {} =  ".format(n1, n2))
+        t2 = dt.now().second
+        delta_time = t2 - t1
+        
+        if int(question) == result:
+            answer = "right"
+        else:
+            answer = "wrong"
+        
+        op_log.update({id : {
+                        "op" : "sum" ,
+                        "time" : dict_time ,
+                        "answer" : answer,
+                        "delta_time" : delta_time 
+                                        }
+                                    })
+        return op_log
+            
+        
+        print("{} + {} = {} ".format(n1, n2, result))
 
 
 # subtraction
