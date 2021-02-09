@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 import random as rd
 import game_ops as go
-
+from pymongo import MongoClient
 
 #########################################################################################################
 #CONFIGURATIONS
@@ -15,6 +15,14 @@ def set_start():
     print(dash)
     print() 
     print("Let's start round configuration")
+ 
+        
+    
+        
+    
+        
+
+
 
 def set_id():
     alpha1 = [x for x in "aeiou"]
@@ -68,11 +76,7 @@ def set_random():
     return random
     
 def run_store(op_reps, random_mode, min, max, dict_time, id):
-    
-    
-    
       
-    
     
     sum_count, sub_count, times_count, div_count = op_reps.split(',')[:-1]
     sum_count= int(sum_count)
@@ -138,3 +142,6 @@ def run_store(op_reps, random_mode, min, max, dict_time, id):
     return main_log                
     
         
+        
+    
+    
